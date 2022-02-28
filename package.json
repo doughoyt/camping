@@ -1,4 +1,12 @@
 {
+  "name": "camping",
+  "version": "0.1.0",
+  "description": "My Camping Site Alert",
+  "main": "src/search.js",
+  "private": true,
+  "scripts": {
+    "start": "node src/search.mjs"
+  },
   "dependencies": {
     "node-fetch": "^3.2.0"
   }
