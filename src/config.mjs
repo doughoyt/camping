@@ -29,8 +29,7 @@ export const desiredDays = [5,6];
 
 // Months to loop ("real" month numbers ... not 'zero-indexed' months)
 // May (5) through Sep (9)
-//export const monthsToSearch = [5,6,7,8,9];
-export const monthsToSearch = [9];
+export const monthsToSearch = [5,6,7,8,9];
 
 // Availability states:
 const RESERVED = 'Reserved';

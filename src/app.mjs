@@ -1,7 +1,7 @@
 import search from './search.mjs';
 import cron from 'node-cron';
-import buildBlock from './blocks.mjs';
-import slack_alert from './slack_alert.mjs';
+import buildBlock from './slack/slack_blocks.mjs';
+import slack_alert from './slack/slack_alert.mjs';
 
 // Local alert function with error logging
 async function alert(message) {
@@ -22,5 +22,3 @@ cron.schedule('0 */3 * * *', function() {
     console.log(results);
     if (results.size > 0) alert(buildBlock(results));
 });
-
-
