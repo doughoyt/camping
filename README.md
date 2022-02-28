@@ -1,2 +1,2 @@
-# camping
+# Camping
 Scrape camping site availability
