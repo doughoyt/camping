@@ -17,8 +17,8 @@ async function alert(message) {
 }
 
 // Do again every 3 hours
-cron.schedule('0 */3 * * *', function() {
-    const results = search();
+cron.schedule('0 */3 * * *', async function() {
+    const results = await search();
     console.log(results);
     if (results.size > 0) alert(buildBlock(results));
 });

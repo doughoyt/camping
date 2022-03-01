@@ -16,7 +16,8 @@ export default async function() {
         for(const monthToSearch of monthsToSearch) {
 
             // get the API JSON for the campground-month pair
-            const campgroundMonth = await getCampgoundMonth(campground.campgroundId, monthToSearch);
+            const campgroundMonth = await getCampgoundMonth(campground.campgroundId, monthToSearch).catch(err => console.log(err));
+
             const sites = Object.values(campgroundMonth.campsites);
             
             for (const site in sites) {
