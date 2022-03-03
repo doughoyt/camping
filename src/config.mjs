@@ -3,7 +3,7 @@ export const desiredSites = [
     {
         campgroundId : 231860,
         campgroundName : 'Arapaho Bay',
-        campgroundSites : ['026','051','058','059','060','061','070','071','072','073','074','075','076','077','078',]
+        campgroundSites : ['026','031','051','058','059','060','061','070','071','072','073','074','075','076','077','078',]
     },
     {
         campgroundId : 232017,
