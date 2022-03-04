@@ -48,3 +48,8 @@ export function checkSettings() {
     return false;
 
 }
+
+export function log(...message) {
+    const now = new Date();
+    console.log(now.toString().substring(0,24)+":", ...message);
+}
