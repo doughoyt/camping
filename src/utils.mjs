@@ -38,3 +38,13 @@ export function searchResultEqual(map1, map2){
     return true;
 
 }
+
+export function checkSettings() {
+    if (process.env.SLACK_CHANNEL_ID !== undefined &&
+        process.env.SLACK_BOT_TOKEN  !== undefined) {
+            return true;
+        }
+
+    return false;
+
+}
