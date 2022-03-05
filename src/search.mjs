@@ -60,6 +60,10 @@ async function getCampgoundMonth(campgroundId, month) {
         new URLSearchParams({start_date: `2022-${month}-01T00:00:00.000Z`});
 
     const response = await fetch(fetchUrl);
+    if (!response.ok) {
+        console.log("No data returned", fetchUrl)
+        return {};
+    }
     const data = await response.json();
     return data;
 };
