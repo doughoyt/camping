@@ -18,6 +18,8 @@ export default async function() {
             // get the API JSON for the campground-month pair
             const campgroundMonth = await getCampgoundMonth(campground.campgroundId, monthToSearch).catch(err => console.log(err));
 
+            if (Object.keys(campgroundMonth).length === 0) continue;    // Skip if no results returned
+
             const sites = Object.values(campgroundMonth.campsites);
             
             for (const site in sites) {
