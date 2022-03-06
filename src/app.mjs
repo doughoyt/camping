@@ -31,8 +31,8 @@ let last = new Map();
     last = results;
 }
 
-// Do again every 2 hours
-cron.schedule('0 */2 * * *', async function() {
+// Do again every 3 hours
+cron.schedule('0 */3 * * *', async function() {
     log("Scheduled search starting...")
     const results = await search();
     log("Scheduled search conducted. Sites available:", results.size)

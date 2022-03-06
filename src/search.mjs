@@ -63,7 +63,7 @@ async function getCampgoundMonth(campgroundId, month) {
 
     const response = await fetch(fetchUrl);
     if (!response.ok) {
-        console.log("No data returned", fetchUrl)
+        console.log(response.status, response.text(), fetchUrl)
         return {};
     }
     const data = await response.json();
