@@ -1,6 +1,7 @@
 'use strict';
 import fetch from 'node-fetch';
 import { desiredSites, desiredDays, desiredStatuses, monthsToSearch } from './config.mjs';
+import logger from './logger.mjs';
 
 export default async function() { 
 
@@ -16,7 +17,7 @@ export default async function() {
         for(const monthToSearch of monthsToSearch) {
 
             // get the API JSON for the campground-month pair
-            const campgroundMonth = await getCampgoundMonth(campground.campgroundId, monthToSearch).catch(err => console.log(err));
+            const campgroundMonth = await getCampgoundMonth(campground.campgroundId, monthToSearch).catch(err => logger.error(err));
 
             if (Object.keys(campgroundMonth).length === 0) continue;    // Skip if no results returned
 
@@ -61,10 +62,13 @@ async function getCampgoundMonth(campgroundId, month) {
     const fetchUrl = `https://www.recreation.gov/api/camps/availability/campground/${campgroundId}/month?` +
         new URLSearchParams({start_date: `2022-${month}-01T00:00:00.000Z`});
 
+    logger.verbose("Fetching: " + fetchUrl)
     const response = await fetch(fetchUrl);
     if (!response.ok) {
-        console.log(response.status, response.text(), fetchUrl)
+        logger.warn(response.status, response.text(), fetchUrl)
         return {};
+    } else {
+        logger.debug(response.status, fetchUrl)
     }
     const data = await response.json();
     return data;
