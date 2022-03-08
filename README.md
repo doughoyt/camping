@@ -6,7 +6,7 @@ The goal of this project is to periodically check the reacreation.gov campsite a
 - On 'night of the week' (like Friday & Saturday)
 - Reservable status
 
-Secondary, it servers as a test project for my learning of ...
+Secondarily, it serves as a test project for my learning of ...
 - server-side node.js & Javascript
 - ECMAScript modules
 - async/await for promises
