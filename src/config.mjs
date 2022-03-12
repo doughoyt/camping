@@ -14,6 +14,16 @@ export const desiredSites = [
         campgroundId : 232073,
         campgroundName : 'Molly Brown',
         campgroundSites : ['002','003','004','007','006','008','009','010','011','012','013','014']
+    },
+    {
+        campgroundId : 232387,
+        campgroundName : 'White Star',
+        campgroundSites : ['006','007','008','008','009','010','011','012','013','014','015','016','017','018']
+    },
+    {
+        campgroundId : 231853,
+        campgroundName : 'Chambers Lake',
+        campgroundSites : ['034','035','036','037','038','039','040','041','042','043','044','045','046','047','048','049','050','051']
     }
 ];
 
@@ -29,7 +39,7 @@ export const desiredDays = [5,6];
 
 // Months to loop ("real" month numbers ... not 'zero-indexed' months)
 // May (5) through Sep (9)
-export const monthsToSearch = [5,6,7,8,9];
+export const monthsToSearch = [5,6,7,8];
 
 // Availability states:
 const RESERVED = 'Reserved';
