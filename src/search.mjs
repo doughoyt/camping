@@ -13,8 +13,11 @@ export default async function() {
         // Output collector
         let availableSiteNights = new Map();
 
+        const campgroundMonthsToSearch = campground.monthsToSearch ? campground.monthsToSearch : monthsToSearch;
+
         // Loop though remaining months
-        for(const monthToSearch of monthsToSearch) {
+        // TODO: Put a delay to reduce chance of a 429 response?
+        for(const monthToSearch of campgroundMonthsToSearch) {
 
             // get the API JSON for the campground-month pair
             const campgroundMonth = await getCampgoundMonth(campground.campgroundId, monthToSearch).catch(err => logger.error(err));
@@ -26,7 +29,8 @@ export default async function() {
             for (const site in sites) {
                 const siteDetails = sites[site];
                 const siteId = siteDetails.site;
-                if (campground.campgroundSites.includes(siteId)) {
+                const wildcard = '*';
+                if (campground.campgroundSites.includes(siteId) || campground.campgroundSites.includes(wildcard)) {
                     // Found a site we desire, let's filter the availabilites by status & night-of-the-week
                     siteDetails.availabilities = filter(siteDetails.availabilities, desiredDays, desiredStatuses);
 

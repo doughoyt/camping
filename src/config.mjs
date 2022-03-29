@@ -24,6 +24,12 @@ export const desiredSites = [
         campgroundId : 231853,
         campgroundName : 'Chambers Lake',
         campgroundSites : ['034','035','036','037','038','039','040','041','042','043','044','045','046','047','048','049','050','051']
+    },
+    {
+        campgroundId : 234685,
+        campgroundName : 'Pinon Flats (Sand Dunes)',
+        campgroundSites : ['*'],
+        monthsToSearch: [5,6]
     }
 ];
 
