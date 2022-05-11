@@ -30,6 +30,10 @@ export default async function() {
                 const siteDetails = sites[site];
                 const siteId = siteDetails.site;
                 const wildcard = '*';
+
+                // Ignore non-numeric sites (usually group sites)
+                if (isNaN(siteId)) continue;
+
                 if (campground.campgroundSites.includes(siteId) || campground.campgroundSites.includes(wildcard)) {
                     // Found a site we desire, let's filter the availabilites by status & night-of-the-week
                     siteDetails.availabilities = filter(siteDetails.availabilities, desiredDays, desiredStatuses);

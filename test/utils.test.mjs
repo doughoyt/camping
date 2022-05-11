@@ -1,5 +1,17 @@
 import {searchResultEqual} from '../src/utils.mjs';
 
+test('Basic Tests', () => {
+
+    const site1 = 12;
+    const site2 = "012";
+    const site3 = "B";
+
+    expect(isNaN(site1)).toBe(false);
+    expect(isNaN(site2)).toBe(false);
+    expect(isNaN(site3)).toBe(true);
+
+});
+
 test('Basic Shallow Tests', () => {
 
     const map1 = new Map();
