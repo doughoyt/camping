@@ -1,26 +1,26 @@
 {
   "name": "camping",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "My Camping Site Alert",
   "main": "src/app.mjs",
   "type": "module",
   "private": true,
   "scripts": {
-    "start_local": "node -r dotenv/config src/app.mjs",
-    "start": "node src/app.mjs",
+    "start": "node -r dotenv/config src/app.mjs",
     "test": "jest"
   },
   "dependencies": {
     "axios": "^0.26.0",
+    "config": "^3.3.8",
     "node-cron": "^3.0.2",
     "node-fetch": "^3.2.0",
+    "dotenv": "^16.0.3",
     "winston": "^3.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
     "@babel/preset-env": "^7.16.11",
     "babel-jest": "^27.5.1",
-    "dotenv": "^16.0.0",
     "jest": "^27.5.1"
   },
   "jest": {

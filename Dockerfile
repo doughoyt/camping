@@ -17,5 +17,7 @@ RUN npm ci --omit=dev
 # Bundle app source
 COPY --chown=node:node . .
 
+VOLUME /usr/src/app/config
+
 USER node
-CMD [ "node", "src/app.mjs" ]
+CMD [ "node", "-r", "dotenv/config", "src/app.mjs" ]
