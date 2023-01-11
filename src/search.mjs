@@ -67,8 +67,10 @@ export default async function() {
 // Async fetch of camground-month JSON data from API
 async function getCampgoundMonth(campgroundId, month) {
     month = ('0' + month).slice(-2);    // Add leading 0 to month to pass to API
+    const year = (process.env.YEAR === undefined) ? new Date().getFullYear() : process.env.YEAR;
+
     const fetchUrl = `https://www.recreation.gov/api/camps/availability/campground/${campgroundId}/month?` +
-        new URLSearchParams({start_date: `2022-${month}-01T00:00:00.000Z`});
+        new URLSearchParams({start_date: `${year}-${month}-01T00:00:00.000Z`});
 
     logger.verbose("Fetching: " + fetchUrl)
     const response = await fetch(fetchUrl);
