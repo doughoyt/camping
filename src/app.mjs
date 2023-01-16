@@ -5,13 +5,17 @@ import { alertBlock, alertText } from './slack/slack_alert.mjs';
 import { searchResultEqual, checkSettings } from './utils.mjs';
 import logger from './logger.mjs';
 
+const cronExpression = process.env.CRON || "0 */3 * * *";
 
-if (!checkSettings()) {
-    logger.error("ERROR: Minimum ENV settings not provided.");
+try {
+    checkSettings();
+  } catch (e) {
+    logger.error(e.message);
     process.exit();
-} else {
-    logger.info("Starting monitor ...");
-}
+  }
+
+logger.info("Starting monitor ...");
+
 
 // Local alert function with error logging
 async function alert(message) {
@@ -35,7 +39,7 @@ let last = new Map();
 }
 
 // Do again every 3 hours
-cron.schedule('0 */3 * * *', async function() {
+cron.schedule(cronExpression, async function() {
     logger.info("Scheduled search starting...")
     const results = await search();
     logger.info("Scheduled search conducted. Sites available:", results.size)

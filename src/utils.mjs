@@ -1,4 +1,5 @@
 'use strict';
+import cron from 'node-cron';
 
 export function searchResultEqual(map1, map2){
     if(map1 == undefined || map2 == undefined) return false;
@@ -40,11 +41,15 @@ export function searchResultEqual(map1, map2){
 }
 
 export function checkSettings() {
-    if (process.env.SLACK_CHANNEL_ID !== undefined &&
-        process.env.SLACK_BOT_TOKEN  !== undefined) {
-            return true;
+
+    if (process.env.SLACK_CHANNEL_ID === undefined ||
+        process.env.SLACK_BOT_TOKEN === undefined) {
+            throw new Error("Missing SLACK environment variables");
         }
 
-    return false;
+    if (process.env.CRON !== undefined &&
+        !cron.validate(process.env.CRON)) {
+            throw new Error("Provided CRON invalid");
+        }
 
 }
