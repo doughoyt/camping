@@ -1,7 +1,7 @@
 # Camping
 Scrape camping site availability
 
-The goal of this project is to periodically check the reacreation.gov campsite availabilities for ..
+The goal of this project is to periodically check the recreation.gov campsite availabilities for ..
 - Campgrounds and sites that we want
 - On 'night of the week' (like Friday & Saturday)
 - Reservable status
