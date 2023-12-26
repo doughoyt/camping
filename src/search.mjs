@@ -6,6 +6,7 @@ import logger from './logger.mjs';
 export default async function() { 
 
     let output = new Map();
+    let today = new Date();
 
     // Loop through Desired sites
     for (const campground of desiredSites) {
@@ -67,7 +68,11 @@ export default async function() {
 // Async fetch of camground-month JSON data from API
 async function getCampgoundMonth(campgroundId, month) {
     month = ('0' + month).slice(-2);    // Add leading 0 to month to pass to API
-    const year = (process.env.YEAR === undefined) ? new Date().getFullYear() : process.env.YEAR;
+    const year = (process.env.YEAR === undefined) ? today.getFullYear() : process.env.YEAR;
+
+    // If searching in the current year, check that month is not in the past
+    // Javascript Date getMonth returns 0-indexed month number--month passed to this method is 1-indexed
+    if (year <= today.getFullYear() && month < today.getMonth() + 1) return {};
 
     const fetchUrl = `https://www.recreation.gov/api/camps/availability/campground/${campgroundId}/month?` +
         new URLSearchParams({start_date: `${year}-${month}-01T00:00:00.000Z`});
