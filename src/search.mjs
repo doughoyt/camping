@@ -6,7 +6,6 @@ import logger from './logger.mjs';
 export default async function() { 
 
     let output = new Map();
-    let today = new Date();
 
     // Loop through Desired sites
     for (const campground of desiredSites) {
@@ -36,7 +35,7 @@ export default async function() {
                 if (isNaN(siteId)) continue;
 
                 if (campground.campgroundSites.includes(siteId) || campground.campgroundSites.includes(wildcard)) {
-                    // Found a site we desire, let's filter the availabilites by status & night-of-the-week
+                    // Found a site we desire, let's filter the availabilites by status & search days
                     siteDetails.availabilities = filter(siteDetails.availabilities, desiredDays, desiredStatuses);
 
                     // If nothing qualifies, go to next site
@@ -67,6 +66,7 @@ export default async function() {
 
 // Async fetch of camground-month JSON data from API
 async function getCampgoundMonth(campgroundId, month) {
+    let today = new Date();
     month = ('0' + month).slice(-2);    // Add leading 0 to month to pass to API
     const year = (process.env.YEAR === undefined) ? today.getFullYear() : process.env.YEAR;
 
@@ -93,7 +93,7 @@ async function getCampgoundMonth(campgroundId, month) {
 function filter(availabilities, desiredDays, desiredStatuses) {
     const asArray = Object.entries(availabilities).
         filter(([night, status]) => {
-            return desiredDays.includes((new Date(night)).getUTCDay()) && desiredStatuses.includes(status);
+            return desiredDays.includes((new Date(night)).valueOf()) && desiredStatuses.includes(status);
         });
     return Object.fromEntries(asArray);
 }
