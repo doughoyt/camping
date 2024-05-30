@@ -11,7 +11,6 @@ for (const date of daysToSearch) {
     const [month, day] = date.split("/", 2);
     desiredDays.push(Date.UTC(year, month-1, day));
 }
-console.log(desiredDays);
 export { desiredDays };
 
 // Output arrays for formatting
