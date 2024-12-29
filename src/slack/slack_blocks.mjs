@@ -38,9 +38,19 @@ export default function (output) {
                 type: 'mrkdwn',
                 text: '*Status*'
             }];
+            let index = 1;
             for (const night in availabilities) {
                 const nightDate = new Date(night);
                 const nightStatus = availabilities[night];
+
+                if (index > 4) {
+                    console.log(index)
+                    index = 0;
+                    block.fields = table;
+                    blocks.push(block);
+                    block = {"type": "section"};
+                    table = [];                    
+                }
 
                 table.push({
                     type: 'plain_text',
@@ -50,6 +60,8 @@ export default function (output) {
                     type: 'plain_text',
                     text: nightStatus
                 });
+
+                index++;
 
             }
             block.fields = table;

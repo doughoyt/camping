@@ -6,7 +6,6 @@ import logger from './logger.mjs';
 export default async function() { 
 
     let output = new Map();
-    let today = new Date();
 
     // Loop through Desired sites
     for (const campground of desiredSites) {
@@ -67,6 +66,7 @@ export default async function() {
 
 // Async fetch of camground-month JSON data from API
 async function getCampgoundMonth(campgroundId, month) {
+    let today = new Date();
     month = ('0' + month).slice(-2);    // Add leading 0 to month to pass to API
     const year = (process.env.YEAR === undefined) ? today.getFullYear() : process.env.YEAR;
 

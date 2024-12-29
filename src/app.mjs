@@ -19,9 +19,11 @@ logger.info("Starting monitor ...");
 
 // Local alert function with error logging
 async function alert(message) {
+    logger.debug('Block:', JSON.stringify(message))
     await alertBlock(message).catch(err => logger.error(err));
 }
 async function textAlert(message) {
+    logger.debug('Text:', JSON.stringify(message))
     await alertText(message).catch(err => logger.error(err));
 }
 

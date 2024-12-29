@@ -10,12 +10,13 @@
     "test": "jest"
   },
   "dependencies": {
-    "axios": "^0.26.0",
-    "config": "^3.3.8",
-    "node-cron": "^3.0.2",
-    "node-fetch": "^3.2.0",
-    "dotenv": "^16.0.3",
-    "winston": "^3.6.0"
+    "axios": "^1.7.9",
+    "camping": "file:",
+    "config": "^3.3.12",
+    "dotenv": "^16.4.7",
+    "node-cron": "^3.0.3",
+    "node-fetch": "^3.3.2",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
