@@ -102,7 +102,6 @@ function filter(availabilities, desiredDays, desiredStatuses) {
     const asArray2 = 
         asArray.filter(([night, status]) => {
             const currDate = new Date(night);
-            console.log(currDate.toISOString(), diffDate(currDate, 1), diffDate(currDate, -1) );
             return diffDate(currDate, 1) in filter1 || diffDate(currDate, -1) in filter1;
         });
 
