@@ -69,6 +69,7 @@ cron.schedule(cronExpression, async function() {
         logger.verbose("Results had sites!");
         if (!searchResultEqual(results, last)) {
             logger.verbose("  Results had different sites! ALERT!!");
+            textAlert("Availability change ...");
             alert(buildBlock(results));
         }
     }
