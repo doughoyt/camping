@@ -90,10 +90,27 @@ async function getCampgoundMonth(campgroundId, month) {
 };
 
 // Filter availabilities object by nights and statuses
+// Filter for back-to-back days
 function filter(availabilities, desiredDays, desiredStatuses) {
     const asArray = Object.entries(availabilities).
         filter(([night, status]) => {
             return desiredDays.includes((new Date(night)).getUTCDay()) && desiredStatuses.includes(status);
         });
-    return Object.fromEntries(asArray);
+
+    const filter1 = Object.fromEntries(asArray);
+
+    const asArray2 = 
+        asArray.filter(([night, status]) => {
+            const currDate = new Date(night);
+            console.log(currDate.toISOString(), diffDate(currDate, 1), diffDate(currDate, -1) );
+            return diffDate(currDate, 1) in filter1 || diffDate(currDate, -1) in filter1;
+        });
+
+    return Object.fromEntries(asArray2);
+}
+
+function diffDate(date, int) {
+    let newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + int)
+    return newDate.toISOString().slice(0,19)+"Z"
 }
