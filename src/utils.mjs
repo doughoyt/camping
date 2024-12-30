@@ -44,10 +44,11 @@ export function resultsToHtml(results){
     
     let header = [`
         <style>
+            body { font-size: 250%; }
             h3 { margin: 10px 0px 0px 0px; }
             h4 { margin: 0px 0px 0px 20px; }
             table, th, td { border: 1px solid black; border-collapse: collapse; }
-            table { width: 75%; }
+            table { width: 85%; }
         </style>
     `];
     let body = [];
