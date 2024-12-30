@@ -44,9 +44,10 @@ export function resultsToHtml(results){
     
     let header = [`
         <style>
+            body { font-size: 32px !important; }
             h3 { margin: 10px 0px 0px 0px; }
             p { margin: 0px 0px 0px 20px; }
-            table, th, td { border: 1px solid black; border-collapse: collapse; font-size: 32px; }
+            table, th, td { border: 1px solid black; border-collapse: collapse; }
             table { width: 80%; margin: 10px 20px 10px 20px;}
         </style>
     `];
@@ -67,7 +68,7 @@ export function resultsToHtml(results){
         for (const [siteId, siteDetails] of availableSiteNights) {
             const availabilities = siteDetails.availabilities;
 
-            body.push(`<h3><strong>Site: ${siteId}</strong></h3>`);
+            body.push(`<h3><a href="https://www.recreation.gov/camping/campsites/${siteDetails.campsite_id}"><strong>Site: ${siteId}</strong></a></h3>`);
             body.push(`<p><b>Type:</b> ${siteDetails.campsite_type}</p>`);
             body.push(`<p><b>Capacity:</b> ${siteDetails.capacity_rating}</p>`);
 
