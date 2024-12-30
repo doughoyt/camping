@@ -2,7 +2,9 @@ export default function (output) {
 
     let blocks = [];
 
-    for(const [campgroundName, availableSiteNights] of output) {
+    for(const [campground, availableSiteNights] of output) {
+
+        const [campgroundName, campgroundId] = campground.split(".");
 
         blocks.push({
             type: "header",
@@ -44,7 +46,6 @@ export default function (output) {
                 const nightStatus = availabilities[night];
 
                 if (index > 4) {
-                    console.log(index)
                     index = 0;
                     block.fields = table;
                     blocks.push(block);

@@ -2,8 +2,9 @@ import search from './search.mjs';
 import cron from 'node-cron';
 import buildBlock from './slack/slack_blocks.mjs';
 import { alertBlock, alertText } from './slack/slack_alert.mjs';
-import { searchResultEqual, checkSettings } from './utils.mjs';
+import { searchResultEqual, resultsToHtml, checkSettings } from './utils.mjs';
 import logger from './logger.mjs';
+import * as http from 'http';
 
 const cronExpression = process.env.CRON || "0 */3 * * *";
 
@@ -38,7 +39,21 @@ let last = new Map();
     // Alert if we have results
     if (results.size > 0) alert(buildBlock(results));
     last = results;
+
 }
+
+http.createServer(function (req, res) {
+    let html = resultsToHtml(last);
+
+    res.writeHead(200, {
+        'Content-Type': 'text/html',
+        'Content-Length': html.length,
+        'Expires': new Date().toUTCString()
+      });
+
+    res.end(html); //end the response
+
+}).listen(8080); //the server object listens on port 8080
 
 // Do again every 3 hours
 cron.schedule(cronExpression, async function() {

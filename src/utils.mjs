@@ -40,6 +40,66 @@ export function searchResultEqual(map1, map2){
 
 }
 
+export function resultsToHtml(results){
+    
+    let header = [`
+        <style>
+            h3 { margin: 10px 0px 0px 0px; }
+            h4 { margin: 0px 0px 0px 20px; }
+            table, th, td { border: 1px solid black; border-collapse: collapse; }
+        </style>
+    `];
+    let body = [];
+
+
+
+    for(const [campground, availableSiteNights] of results) {
+
+        const [campgroundName, campgroundId] = campground.split(".");
+
+        body.push(`<h1><a href="https://www.recreation.gov/camping/campgrounds/${campgroundId}">${campgroundName}</a></h1>`);
+        body.push(`<\hr>`);
+        
+        // Now we have a Map of the desired sites with availabilities merged from all months
+        // Loop again to test for dates and states
+        // ** Note that this is UNsorted and might be nicer by site "ID" **
+        for (const [siteId, siteDetails] of availableSiteNights) {
+            const availabilities = siteDetails.availabilities;
+
+            body.push(`<h3><strong>Site: ${siteId}</strong></h3>`);
+            body.push(`<h4>Type: ${siteDetails.campsite_type}</h4>`);
+            body.push(`<h4>Capacity: ${siteDetails.capacity_rating}</h4>`);
+
+            body.push(`<table>`);
+            body.push(`<tr>`);
+            body.push(`<th>Night</th>`);
+            body.push(`<th>Status</th>`);
+            body.push(`</tr>`);
+            
+            // Loop through availabilities
+            for (const night in availabilities) {
+                const nightDate = new Date(night);
+                const nightStatus = availabilities[night];
+
+                body.push(`<tr>`);
+                body.push(`<td>${nightDate.toUTCString().substring(0,16)}</td>`);
+                body.push(`<td>${nightStatus}</td>`);
+                body.push(`</tr>`);
+
+            }
+            body.push(`</table>`);
+            body.push(`</hr>`);
+
+        }
+
+
+    }
+
+    return '<!DOCTYPE html>'
+    + '<html><head>' + header.join("\n") + '</head><body>' + body.join("\n") + '</body></html>';
+
+}
+
 export function checkSettings() {
 
     if (process.env.SLACK_CHANNEL_ID === undefined ||

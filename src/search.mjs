@@ -56,7 +56,7 @@ export default async function() {
         }
 
         // If any sites are available for this campground, add to output Map
-        if (availableSiteNights.size > 0) output.set(campground.campgroundName, availableSiteNights)
+        if (availableSiteNights.size > 0) output.set(`${campground.campgroundName}.${campground.campgroundId}`, availableSiteNights)
 
     }
 
