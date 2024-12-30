@@ -44,11 +44,10 @@ export function resultsToHtml(results){
     
     let header = [`
         <style>
-            body { font-size: 200%; }
             h3 { margin: 10px 0px 0px 0px; }
-            h4 { margin: 0px 0px 0px 20px; }
-            table, th, td { border: 1px solid black; border-collapse: collapse; }
-            table { width: 85%; }
+            p { margin: 0px 0px 0px 20px; }
+            table, th, td { border: 1px solid black; border-collapse: collapse; font-size: 32px; }
+            table { width: 80%; margin: 10px 20px 10px 20px;}
         </style>
     `];
     let body = [];
@@ -69,8 +68,8 @@ export function resultsToHtml(results){
             const availabilities = siteDetails.availabilities;
 
             body.push(`<h3><strong>Site: ${siteId}</strong></h3>`);
-            body.push(`<h4>Type: ${siteDetails.campsite_type}</h4>`);
-            body.push(`<h4>Capacity: ${siteDetails.capacity_rating}</h4>`);
+            body.push(`<p><b>Type:</b> ${siteDetails.campsite_type}</p>`);
+            body.push(`<p><b>Capacity:</b> ${siteDetails.capacity_rating}</p>`);
 
             body.push(`<table>`);
             body.push(`<tr>`);
