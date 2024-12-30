@@ -47,6 +47,7 @@ export function resultsToHtml(results){
             h3 { margin: 10px 0px 0px 0px; }
             h4 { margin: 0px 0px 0px 20px; }
             table, th, td { border: 1px solid black; border-collapse: collapse; }
+            table { width: 75%; }
         </style>
     `];
     let body = [];
