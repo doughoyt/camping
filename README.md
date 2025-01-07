@@ -3,7 +3,7 @@ Scrape camping site availability
 
 The goal of this project is to periodically check the recreation.gov campsite availabilities for ..
 - Campgrounds and sites that we want
-- On 'night of the week' (like Friday & Saturday)
+- Specific dates that we want to search for (and ensure 2 consecutive days are available)
 - Reservable status
 
 Secondarily, it serves as a test project for my learning of ...
