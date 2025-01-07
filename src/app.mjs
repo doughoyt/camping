@@ -3,6 +3,7 @@ import cron from 'node-cron';
 import buildBlock from './slack/slack_blocks.mjs';
 import { alertBlock, alertText } from './slack/slack_alert.mjs';
 import { searchResultEqual, resultsToHtml, checkSettings } from './utils.mjs';
+import { resultsUrl } from './config.mjs';
 import logger from './logger.mjs';
 import * as http from 'http';
 
@@ -37,7 +38,10 @@ let last = new Map();
     const results = await search();
     logger.info("Initial search conducted. Sites available:", results.size)
     // Alert if we have results
-    if (results.size > 0) alert(buildBlock(results));
+    if (results.size > 0) {
+        textAlert("Availability change ... " + resultsUrl);
+        alert(buildBlock(results));
+    }
     last = results;
 
 }
@@ -69,7 +73,7 @@ cron.schedule(cronExpression, async function() {
         logger.verbose("Results had sites!");
         if (!searchResultEqual(results, last)) {
             logger.verbose("  Results had different sites! ALERT!!");
-            textAlert("Availability change ...");
+            textAlert("Availability change ... " + resultsUrl);
             alert(buildBlock(results));
         }
     }

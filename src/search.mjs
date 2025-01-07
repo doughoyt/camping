@@ -1,9 +1,18 @@
 'use strict';
 import fetch from 'node-fetch';
-import { desiredSites, desiredDays, desiredStatuses, monthsToSearch } from './config.mjs';
+import { desiredSites, desiredDays, desiredStatuses } from './config.mjs';
 import logger from './logger.mjs';
 
 export default async function() { 
+
+    // Make desiredDays an array of actual Date objects
+    const desiredDates = desiredDays.map(x => new Date(x));
+    // Derive monthsToSearch from list of dates
+    //  Even though we're using distinct dates now, API call is still monthly
+    const monthsToSearch = getDistinctMonths(desiredDates); 
+    // Derive year from first date in list
+    //  This will allow us to set up next year's dates in advance and not worry about ENV VAR update
+    const year = desiredDates[0].getFullYear();
 
     let output = new Map();
 
@@ -20,7 +29,7 @@ export default async function() {
         for(const monthToSearch of campgroundMonthsToSearch) {
 
             // get the API JSON for the campground-month pair
-            const campgroundMonth = await getCampgoundMonth(campground.campgroundId, monthToSearch).catch(err => logger.error(err));
+            const campgroundMonth = await getCampgoundMonth(campground.campgroundId, monthToSearch, year).catch(err => logger.error(err));
 
             if (Object.keys(campgroundMonth).length === 0) continue;    // Skip if no results returned
 
@@ -36,7 +45,7 @@ export default async function() {
 
                 if (campground.campgroundSites.includes(siteId) || campground.campgroundSites.includes(wildcard)) {
                     // Found a site we desire, let's filter the availabilites by status & night-of-the-week
-                    siteDetails.availabilities = filter(siteDetails.availabilities, desiredDays, desiredStatuses);
+                    siteDetails.availabilities = filter(siteDetails.availabilities, desiredDates, desiredStatuses);
 
                     // If nothing qualifies, go to next site
                     if (Object.keys(siteDetails.availabilities).length === 0) continue;
@@ -65,10 +74,9 @@ export default async function() {
 }
 
 // Async fetch of camground-month JSON data from API
-async function getCampgoundMonth(campgroundId, month) {
+async function getCampgoundMonth(campgroundId, month, year) {
     let today = new Date();
     month = ('0' + month).slice(-2);    // Add leading 0 to month to pass to API
-    const year = (process.env.YEAR === undefined) ? today.getFullYear() : process.env.YEAR;
 
     // If searching in the current year, check that month is not in the past
     // Javascript Date getMonth returns 0-indexed month number--month passed to this method is 1-indexed
@@ -91,10 +99,13 @@ async function getCampgoundMonth(campgroundId, month) {
 
 // Filter availabilities object by nights and statuses
 // Filter for back-to-back days
-function filter(availabilities, desiredDays, desiredStatuses) {
+function filter(availabilities, desiredDates, desiredStatuses) {
+
+    const desiredDatesStr = desiredDates.map(date => date.toISOString().slice(0, 10));
+
     const asArray = Object.entries(availabilities).
         filter(([night, status]) => {
-            return desiredDays.includes((new Date(night)).getUTCDay()) && desiredStatuses.includes(status);
+            return desiredDatesStr.includes((new Date(night)).toISOString().slice(0, 10)) && desiredStatuses.includes(status);
         });
 
     const filter1 = Object.fromEntries(asArray);
@@ -112,4 +123,15 @@ function diffDate(date, int) {
     let newDate = new Date(date);
     newDate.setDate(newDate.getDate() + int)
     return newDate.toISOString().slice(0,19)+"Z"
+}
+
+function getDistinctMonths(dates) {
+    const uniqueMonths = new Set();
+  
+    for (const date of dates) {
+      const month = new Date(date).getMonth() + 1; // 1 for January, 2 for February, etc.
+      uniqueMonths.add(month);
+    }
+  
+    return Array.from(uniqueMonths); 
 }

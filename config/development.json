@@ -32,6 +32,6 @@
             "monthsToSearch": [5,6]
         }
     ],
-    "desiredDays" : [5,6],
-    "monthsToSearch" : [4,5,6,7,8]
+    "desiredDays" : ["5/30/2025", "5/31/2025"],
+    "resultsUrl" : "www.recreation.gov" // Blank string is fine, but must have this parameter
 }
