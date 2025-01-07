@@ -7,14 +7,13 @@ WORKDIR /usr/src/app
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
 COPY package*.json ./
 
-# RUN npm install
-# If you are building your code for production
+# Get required libraries (excluding dev-only)
 RUN npm ci --omit=dev
 
 # Bundle app source
+#  Make sure .dockerignore exludes any ENV/sensitive data or installed node module folders
 COPY --chown=node:node . .
 
 VOLUME /usr/src/app/config
