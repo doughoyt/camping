@@ -1,7 +1,8 @@
 import config from 'config';
 
 export const desiredSites = config.get('desiredSites');
-export const desiredDays = config.get('desiredDays');
+//export const desiredDays = config.get('desiredDays');
+export const desiredDays = process.env.DESIRED_DAYS.split(",");
 export const resultsUrl = config.get('resultsUrl');
 
 // Output arrays for formatting

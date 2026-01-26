@@ -76,7 +76,11 @@ cron.schedule(cronExpression, async function() {
             textAlert("Availability change ... " + resultsUrl);
             alert(buildBlock(results));
         }
+    } else if (last.size > 0) {
+        logger.verbose("Results had no sites ... but previous did.");
+        textAlert("No desired availability left ... " + resultsUrl);
     }
+
     // Set last to the current
     last = results;
 });
